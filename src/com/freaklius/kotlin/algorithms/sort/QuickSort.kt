@@ -21,17 +21,17 @@ public class QuickSort : SortAlgorithm {
      * @return returns middleIndex value
      */
     private fun partition(arr: Array<Long>, fromIndex: Int, toIndex: Int) : Int{
-        var lastElementValue = arr[toIndex];
-        var i = fromIndex - 1;
-        for (j in fromIndex..toIndex - 1){
-            if (arr[j] <= lastElementValue){
-                i++;
+        val lastElementValue = arr[toIndex];
+        var i = fromIndex;
+        for (j in (fromIndex + 1)..toIndex - 1){
+            if (arr[j] <= lastElementValue && arr[i] > arr[j]){  //if arr[j] and arr[i] are same, they don't need to swap
                 swap(arr, i, j);
+                i++;
             }
         }
         //Swapping leftmost element of the second part with the last element of the array, i.e. with middle element
-        swap(arr, i + 1, toIndex);
-        return i + 1;
+        swap(arr, i, toIndex);
+        return i;
     }
 
     /**
