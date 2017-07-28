@@ -11,27 +11,42 @@ public class QuickSort : SortAlgorithm {
         return arr;
     }
 
-    /**
-     * Swaps initial array elements having keys in [fromIndex; toIndex] range
-     * so that two subarrays are formed: leftArr[i] <= arr[middleIndex] <= rightArr[j]
-     * for any i, j and fromIndex <= middleIndex <= toIndex
-     * @param arr
-     * @param fromIndex
-     * @param toIndex
-     * @return returns middleIndex value
+    /*
+    arr = array
+    left = array start
+    right = array end
+    arr[i] > pivot ---- arr[j] > pivot -> j--              both bigger than pivot
+                   ---- arr[j] < pivot -> swap, i++, j--   i is bigger, j is smaller
+    arr[i] < pivot ---- arr[j] > pivot -> i++, j--         i is smaller, j is bigger
+                   ---- arr[j] < pivot -> i++              both smaller than pivot
      */
-    private fun partition(arr: Array<Long>, fromIndex: Int, toIndex: Int) : Int{
-        val lastElementValue = arr[toIndex];
-        var i = fromIndex;
-        for (j in (fromIndex + 1)..toIndex - 1){
-            if (arr[j] <= lastElementValue && arr[i] > arr[j]){  //if arr[j] and arr[i] are same, they don't need to swap
-                swap(arr, i, j);
-                i++;
+    private fun partition(arr: MutableList<Long>, left: Int, right: Int) : Int{
+        val pivot = arr[right]
+        var i = left
+        var j = right - 1
+        while (i < j) {
+            if (arr[i] > pivot) {
+                if (arr[j] < pivot) {
+                    swap(arr, i, j)
+                    i++
+                }
+                j--
+            } else {
+                if (arr[j] > pivot) {
+                    j--
+                }
+                i++
             }
         }
-        //Swapping leftmost element of the second part with the last element of the array, i.e. with middle element
-        swap(arr, i, toIndex);
-        return i;
+        /*
+        last swap or not
+        */
+        if (arr[i] > arr[right]) {
+            swap(arr, i, right)
+            return i
+        } else {
+            return i + 1
+        }
     }
 
     /**

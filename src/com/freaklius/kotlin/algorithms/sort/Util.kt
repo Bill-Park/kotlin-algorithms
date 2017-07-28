@@ -39,18 +39,13 @@ fun shuffleArray(arr: Array<Long>) : Array<Long>{
     return arr;
 }
 
-/**
- * Swaps i-th and j-th elemens of the array
- * @param arr
- * @param i
- * @param j
- */
-fun swap(arr: Array<Long>, i: Int, j: Int) : Array<Long>{
+//swap do deep copy, got arr change -> give arr change too
+fun swap(arr: MutableList<Long>, i: Int, j: Int){
     val tmp : Long = arr[i];
     arr[i] = arr[j];
     arr[j] = tmp;
-    return arr;
 }
+
 
 /**
  * Creates random array or Long of given length and max value
